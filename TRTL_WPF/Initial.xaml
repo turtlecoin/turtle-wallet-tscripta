@@ -1,0 +1,23 @@
+﻿<Controls:MetroWindow
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TRTL_WPF"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="TRTL_WPF.Initial"
+        mc:Ignorable="d"
+        Title="T-Scripta" Height="350" Width="250" Background="#FF2F2F2F" WindowStartupLocation="CenterScreen" Topmost="True" ResizeMode="NoResize">
+    <StackPanel>
+        <Image Source="assets/trtl.png" Height="150"/>
+        <Grid Height="171">
+            <Grid >
+                <Button Content="Create New Wallet" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" Margin="42,28,42,113"/>
+                <Button Content="Open Existing Wallet" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" Margin="42,57,42,84"/>
+                <CheckBox Content="Remote Daemon" HorizontalAlignment="Left" Margin="136,110,0,37" FontSize="10"/>
+
+
+            </Grid>
+        </Grid>
+    </StackPanel>
+</Controls:MetroWindow>

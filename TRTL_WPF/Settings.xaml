@@ -1,0 +1,22 @@
+﻿<Controls:MetroWindow
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TRTL_WPF"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="TRTL_WPF.Settings"
+        mc:Ignorable="d"
+        Title="Settings" Height="300" Width="350" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" >
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Left" Width="120" Background="#26000000">
+            <Button Content="Network" Width="110" mah:ButtonHelper.CornerRadius="0" BorderBrush="{x:Null}"/>
+            <Button Content="Wallet" Width="110" mah:ButtonHelper.CornerRadius="0" BorderBrush="{x:Null}"/>
+            <Button Content="Other" Width="110" mah:ButtonHelper.CornerRadius="0" BorderBrush="{x:Null}"/>
+        </StackPanel>
+        <Grid DockPanel.Dock="Right">
+            <Button Padding="0" Content="Accept" Margin="95,233,69,10" Width="60" />
+            <Button Padding="0" Content="Cancel" Margin="160,233,4,10" Width="60" />
+        </Grid>
+    </DockPanel>
+</Controls:MetroWindow>

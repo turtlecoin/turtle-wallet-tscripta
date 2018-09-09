@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TRTL_WPF", "TRTL_WPF\TRTL_WPF.csproj", "{174DAFC6-D043-4CA8-A32F-F96D01E1DBE2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{174DAFC6-D043-4CA8-A32F-F96D01E1DBE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{174DAFC6-D043-4CA8-A32F-F96D01E1DBE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{174DAFC6-D043-4CA8-A32F-F96D01E1DBE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{174DAFC6-D043-4CA8-A32F-F96D01E1DBE2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BF7437B0-322A-419A-A6AE-35375A0DCBE0}
+	EndGlobalSection
+EndGlobal
