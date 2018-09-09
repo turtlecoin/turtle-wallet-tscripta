@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="T.Scripta.Overview"
+              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:T.Scripta"
+             mc:Ignorable="d" 
+             d:DesignHeight="405" d:DesignWidth="800">
+    <Grid>
+
+        <TextBlock Margin="10,10,400,225" TextWrapping="Wrap" FontSize="20" Background="#33000000" Foreground="White" Padding="20,30,0,0">
+            <Run Text="Balance:" FontSize="20"/> <LineBreak/> <Run Name="Balanceind" Text="0" Foreground="#FF159B00"/> <Run Text=" TRTL" Foreground="#FF159B00"/><LineBreak/>
+            <Run Text="Locked Balance:" Foreground="#FF8B8B8B"/><LineBreak/><Run Name="LockedBalanceind" Text="0" Foreground="#FF0C5700"/><Run Text=" TRTL" Foreground="#FF0C5700"/>
+
+        </TextBlock>
+        <DataGrid Name="Transaction_List" Margin="10,190,10,30" IsReadOnly="True" CanUserAddRows="false"  Background="#FF1F1F1F"/>
+            <TextBlock Margin="590,10,10,294" Padding="10" Foreground="White" Background="#33000000">
+            <Run Text="Wallet Height: "/> <Run Text="0" Name="WalletHeightind" /> <LineBreak/>
+            <Run Text="Daemon Height: "/> <Run Text="0" Name="DaemonHeightind"/> <LineBreak/>
+            <Run Text="Network Height: "/> <Run Text="0" Name="NetworkHeightind"/> <LineBreak/>
+            <Run Text="Daemon: "/> <Run Text="Localhost" Name="DaemonAddressind"/> <LineBreak/>
+            <Run Text="Peers: "/> <Run Text="0" Name="Peerind"/> 
+        </TextBlock>
+
+    </Grid>
+</UserControl>

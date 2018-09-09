@@ -1,0 +1,35 @@
+﻿<Page
+    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:T.Scripta"
+      xmlns:Menus="clr-namespace:T.Scripta.Menus" x:Class="T.Scripta.Initial"
+      mc:Ignorable="d" 
+      Height="420" Width="800">
+
+    <Grid Focusable="False" >
+        <Image Source="Assets/trtl.png"  Margin="323,0,323,296"/>
+        <TextBlock Text="T.Scripta" FontSize="25" TextAlignment="Center" Margin="323,124,323,261" Foreground="#FFD6C7C7"/>
+        <TextBlock Margin="762,393,10,10" Text="v2.02" Foreground="White"/>
+        <Controls:TransitioningContentControl Focusable="False" IsTabStop="True" Name="Transition" Margin="0,159,0,0">
+            <Grid>
+                <Grid Name="Main" Visibility="Visible">
+                    <Button IsTabStop="True" Content="Open Wallet" FontSize="15" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" Margin="277,97,277,114" Click="Open_walletbtn" />
+                    <Button IsTabStop="True" Content="Create New Wallet" FontSize="15" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" Margin="277,48,277,163" Click="Create_walletbtn"/>
+                </Grid>
+                <Grid Name="Wallet" Visibility="Hidden" >
+                    <TextBlock Name="Walletnameind" Margin="260,10,260,233" TextAlignment="Center" Foreground="#FFDADADA"/>
+                    <PasswordBox x:Name="Passwordfield" Margin="297,49,297,174" Background="{x:Null}" BorderThickness="0,0,0,1" BorderBrush="#FF074D00" Foreground="White" Controls:TextBoxHelper.Watermark="Password" Controls:TextBoxHelper.UseFloatingWatermark="True"/>
+                    <Button x:Name="Unlockwalletbtn" Content="Unlock Wallet" Margin="378,105,297,125" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderBrush="{x:Null}" Foreground="#FFDEDEDE" Focusable="False" Click="LoadWallet" />
+                    <Button x:Name="Returntomenubtn" Content="Go Back" Margin="297,105,451,125" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderBrush="{x:Null}" Foreground="#FFDEDEDE" Focusable="False" Click="Returntomainmenubtn" />
+                    <Controls:ProgressRing x:Name="Progress"  IsActive="False" Margin="552,76,188,125"/>
+                    <Controls:TransitioningContentControl Name="FactShower" Margin="179,154,178,10">
+                        <TextBlock TextWrapping="Wrap" Name="Fact" TextAlignment="Center" FontSize="17" Foreground="#FFCDCDCD"/>
+                    </Controls:TransitioningContentControl>
+                </Grid>
+            </Grid>
+        </Controls:TransitioningContentControl>
+    </Grid>
+</Page>

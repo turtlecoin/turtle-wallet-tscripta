@@ -1,0 +1,24 @@
+﻿<Page x:Class="T.Scripta.Main"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:T.Scripta"
+        mc:Ignorable="d" Title="T Scripta" Height="450" Width="800" Background="#FF1F1F1F">
+    <Controls:MetroContentControl Name="Frame">
+        <StackPanel>
+            <WrapPanel Height="35" Background="#19000000">
+                <Button Content="Overview" Width="100" Height="35" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderBrush="{x:Null}" Foreground="White" Focusable="False" Click="OverviewTab" Background="#FF2B2B2B" />
+                <Button Name="Recievebtn" Content="Receive" Width="100" Height="35" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderBrush="{x:Null}" IsTabStop="False" Focusable="False" Click="RecieveTab" Background="#FF2B2B2B"/>
+                <Button Name="Sendbtn" Content="Send" Width="100" Height="35" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderBrush="{x:Null}" IsTabStop="False" Focusable="False" Click="SendTab" Background="#FF2B2B2B" />
+                <Button Content="Console" Width="100" Height="35" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderBrush="{x:Null}" IsTabStop="False" Focusable="False" Click="ConsoleTab" Background="#FF2B2B2B" />
+                <TextBlock Padding="9,9,0,0" Foreground="#FFE8E8E8">
+                <Run Text="Wallet: "/>
+                <Run Text="" Name="Walletname"/>
+                </TextBlock>
+            </WrapPanel>
+            <Controls:TransitioningContentControl x:Name="content" Height="405" Transition="Left" Foreground="{x:Null}"/>
+        </StackPanel>
+    </Controls:MetroContentControl>
+</Page>

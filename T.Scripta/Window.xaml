@@ -1,0 +1,11 @@
+﻿<Controls:MetroWindow x:Class="T.Scripta.Window"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:T.Scripta"
+        mc:Ignorable="d" TitleCaps="False" WindowTitleBrush="#FF07590E" WindowStyle="None" BorderThickness="0"
+        WindowStartupLocation="CenterScreen" AllowsTransparency="True" Opacity="0.995" Title="T Scripta" Height="450" Width="800" Background="#FF1F1F1F" ResizeMode="CanMinimize" Closing="Save" Icon="Assets/trtl.png">
+    <Frame IsTabStop="True" Name="Frame" NavigationUIVisibility="Hidden" Focusable="False"/>
+</Controls:MetroWindow>
