@@ -1,0 +1,21 @@
+﻿<Controls:MetroWindow x:Class="TRTL_WPF.Walletcreation"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TRTL_WPF"
+        mc:Ignorable="d" ShowTitleBar="False"
+        Title="Walletcreation"  Height="200" Width="300" Background="#FF2F2F2F" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="32,76,0,0" TextWrapping="Wrap" Text="Password:" VerticalAlignment="Top" Foreground="#FFFBFBFB"/>
+        <TextBlock HorizontalAlignment="Left" Margin="32,29,0,0" TextWrapping="Wrap" Text="Filename:" VerticalAlignment="Top" Foreground="#FFFBFBFB"/>
+        <TextBox x:Name="Filename" CommandManager.PreviewExecuted="textBox_PreviewExecuted" ContextMenu="{x:Null}" PreviewKeyDown="pwintercept" HorizontalAlignment="Left" Height="23" Margin="32,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <PasswordBox x:Name="Pw1" PreviewKeyDown="pwintercept" HorizontalAlignment="Left" Margin="32,92,0,0" VerticalAlignment="Top" Width="151"/>
+        <TextBlock HorizontalAlignment="Left" Margin="32,123,0,0" TextWrapping="Wrap" Text="Confirm Password:" VerticalAlignment="Top" Foreground="#FFFBFBFB"/>
+        <PasswordBox x:Name="Pw2" HorizontalAlignment="Left" PreviewKeyDown="pwintercept" Margin="32,139,0,0"  VerticalAlignment="Top" Width="151"/>
+        <TextBlock HorizontalAlignment="Left" Margin="157,55,0,0" TextWrapping="Wrap" Text=".wallet" VerticalAlignment="Top" Foreground="#FFFBFBFB" FontWeight="Thin"/>
+        <Button Content="Create" HorizontalAlignment="Left" Margin="215,165,0,0" VerticalAlignment="Top" Width="75" Controls:ControlsHelper.ContentCharacterCasing="Normal" Controls:ButtonHelper.CornerRadius="0" Click="Create_wallet"/>
+
+    </Grid>
+</Controls:MetroWindow>

@@ -7,17 +7,44 @@
         xmlns:local="clr-namespace:TRTL_WPF"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="TRTL_WPF.Initial"
         mc:Ignorable="d"
-        Title="T-Scripta" Height="350" Width="250" Background="#FF2F2F2F" WindowStartupLocation="CenterScreen" Topmost="True" ResizeMode="NoResize">
+        Title="T-Scripta" Height="350" Width="250" Background="#FF2F2F2F" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ShowInTaskbar="False">
     <StackPanel>
         <Image Source="assets/trtl.png" Height="150"/>
-        <Grid Height="171">
-            <Grid >
-                <Button Content="Create New Wallet" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" Margin="42,28,42,113"/>
-                <Button Content="Open Existing Wallet" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" Margin="42,57,42,84"/>
-                <CheckBox Content="Remote Daemon" HorizontalAlignment="Left" Margin="136,110,0,37" FontSize="10"/>
+        <Controls:MetroContentControl Name="Transitionframe" Height="171">
+            <Grid>
+                <Grid Name="Default" d:IsHidden="True">
+                    <Button Content="Create New Wallet" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" Margin="42,12,42,129" Click="CreateWallet"/>
+                    <Button Content="Open Existing Wallet" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" Margin="42,41,42,100" Click="Openwallet"/>
+                    <CheckBox Content="Remote Daemon" HorizontalAlignment="Left" Margin="136,92,0,55" FontSize="10"/>
+                    <TextBox Margin="10,135,94,10" Text="public.turtlenode.io" TextWrapping="Wrap" Height="10"/>
+                    <TextBlock Margin="10,119,185,36" TextWrapping="Wrap" Text="Address:" Foreground="White"/>
 
 
+                </Grid>
+                <Grid Name="Login">
+
+                    <Button Content="..." HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Width="26" Height="26" RenderTransformOrigin="0.5,0.5" FontSize="18" Padding="1,-6,0,0" Click="Setdirectory">
+                        <Button.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Button.RenderTransform>
+                    </Button>
+
+                    <Button Content="Login" HorizontalAlignment="Left" Margin="159,134,0,0" VerticalAlignment="Top" Width="75" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" Click="Openwalletfile"/>
+                    <TextBlock Margin="29,10,62,146" TextWrapping="Wrap" Foreground="#FFE4E4E4">
+                        <Run>Wallet File:</Run> <Run FontSize="8" Text="(Yourwallet.wallet)" Foreground="#FF686868" />
+                    </TextBlock>
+                    <TextBox x:Name="Pathbox" Margin="29,30,10,115" Padding="0,2,0,0" FontSize="10" Controls:TextBoxHelper.WatermarkWrapping="Wrap" Controls:TextBoxHelper.WatermarkTrimming="CharacterEllipsis" IsReadOnly="True"/>
+                    <PasswordBox x:Name="passwordloginbox" Height="23" Margin="10,86,10,59"/>
+                    <TextBlock Margin="10,66,178,90" TextWrapping="Wrap" Text="Password:" Foreground="#FFE4E4E4"/>
+
+                    <Controls:ProgressRing Name="walletloading"  IsActive="False" Height="30" Margin="62,125,152,16" Width="30" />
+                </Grid>
             </Grid>
-        </Grid>
+        </Controls:MetroContentControl>
     </StackPanel>
 </Controls:MetroWindow>
