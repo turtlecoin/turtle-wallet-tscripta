@@ -69,7 +69,7 @@ namespace TRTL_WPF
         public void OnWalletDisconnect(object sender, EventArgs e) { }
         public void OnDaemonSynced(object sender, EventArgs e) { }
         public void OnWalletSynced(object sender, EventArgs e) { }
-        public async void Run()
+        public async void Run(string path,string pw, bool remote, string remoteurl, int remoteport)
         {
             // Create a new session
             TRTLSess = new TurtleCoin();
@@ -92,21 +92,23 @@ namespace TRTL_WPF
             TRTLSess.Wallet.OnDisconnect += OnWalletDisconnect;
 
             // Initialize daemon
-            //await TRTLSess.Daemon.InitializeAsync("http://localhost", 11898);
-            await TRTLSess.Daemon.InitializeAsync("http://public.turtlenode.io", 11898);
-            //await TRTLSess.Daemon.InitializeAsync(root + @"\TurtleCoind.exe", 11898);
+            if (remote)
+            {
+                await TRTLSess.Daemon.InitializeAsync(remoteurl, remoteport);
+            }
+            else
+            {
+                await TRTLSess.Daemon.InitializeAsync(root + @"\TurtleCoind.exe", 11898);
+            }
             // Begin daemon update loop
             await TRTLSess.Daemon.BeginUpdateAsync();
 
-            // Initialize wallet, creating container if it doesn't exist
-            if (!File.Exists(root + @"\abc.wallet")) await TRTLSess.Wallet.CreateOrInitializeAsync(TRTLSess.Daemon, root + @"\turtle-service.exe", root + @"\abc.wallet", "abc");
-            else await TRTLSess.Wallet.InitializeAsync(TRTLSess.Daemon, root + @"\turtle-service.exe", root + @"\abc.wallet", "abc");
+            // Initialize wallet
+           await TRTLSess.Wallet.InitializeAsync(TRTLSess.Daemon, root + @"\turtle-service.exe", path, pw);
 
             // Begin wallet update loop
             await TRTLSess.Wallet.BeginUpdateAsync();
             initialized = true;
-            //Thread.Sleep(1500);
-            //geataddress();
         }
         public bool SendTRTL(string Addr, double Amount, double Fee = .01, int Mixin = 7, string PaymentID = "")
         {
@@ -177,13 +179,13 @@ namespace TRTL_WPF
                 connectedtodaemon.Text = TRTLSess.Daemon.Connected ? "Connected" : "Disconnected";
             }));
         }
-        public MainWindow()
+        public MainWindow(string Path, string Pw, bool Remote, string Remoteurl="",int Remoteport= 11898)
         {
             InitializeComponent();
             Changepage(0);
             Thread Thread = new Thread(() =>
             {
-                Run();
+                Run(Path,Pw,Remote,Remoteurl,Remoteport);
             })
             { IsBackground = true };
             Thread.SetApartmentState(ApartmentState.STA);

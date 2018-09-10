@@ -12,16 +12,16 @@
         <Image Source="assets/trtl.png" Height="150"/>
         <Controls:MetroContentControl Name="Transitionframe" Height="171">
             <Grid>
-                <Grid Name="Default" d:IsHidden="True">
+                <Grid Name="Default">
                     <Button Content="Create New Wallet" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" Margin="42,12,42,129" Click="CreateWallet"/>
                     <Button Content="Open Existing Wallet" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" Margin="42,41,42,100" Click="Openwallet"/>
-                    <CheckBox Content="Remote Daemon" HorizontalAlignment="Left" Margin="136,92,0,55" FontSize="10"/>
-                    <TextBox Margin="10,135,94,10" Text="public.turtlenode.io" TextWrapping="Wrap" Height="10"/>
+                    <CheckBox Name="RemoteToggle" Content="Remote Daemon" HorizontalAlignment="Left" Margin="136,92,0,55" FontSize="10" Click="Updatecheck"/>
+                    <TextBox Name="remoteurlbox" Margin="10,135,94,10" Text="public.turtlenode.io" TextWrapping="Wrap" Height="10" MouseLeave="UpdateFielddaemonurl"/>
                     <TextBlock Margin="10,119,185,36" TextWrapping="Wrap" Text="Address:" Foreground="White"/>
 
 
                 </Grid>
-                <Grid Name="Login">
+                <Grid Name="Login" d:IsHidden="True">
 
                     <Button Content="..." HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Width="26" Height="26" RenderTransformOrigin="0.5,0.5" FontSize="18" Padding="1,-6,0,0" Click="Setdirectory">
                         <Button.RenderTransform>
@@ -42,7 +42,8 @@
                     <PasswordBox x:Name="passwordloginbox" Height="23" Margin="10,86,10,59"/>
                     <TextBlock Margin="10,66,178,90" TextWrapping="Wrap" Text="Password:" Foreground="#FFE4E4E4"/>
 
-                    <Controls:ProgressRing Name="walletloading"  IsActive="False" Height="30" Margin="62,125,152,16" Width="30" />
+                    <Controls:ProgressRing Name="walletloading"  IsActive="False" Height="30" Margin="86,125,128,16" Width="30" />
+                    <Button Content="Back" Padding="0" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top" Width="29" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" Click="Backtomain" Height="27"/>
                 </Grid>
             </Grid>
         </Controls:MetroContentControl>

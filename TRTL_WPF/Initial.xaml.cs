@@ -16,7 +16,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Ini.Net;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using Newtonsoft.Json.Linq;
 using System.Threading;
 
 namespace TRTL_WPF
@@ -26,14 +25,31 @@ namespace TRTL_WPF
     /// </summary>
     public partial class Initial
     {
+        public IniFile ini = new IniFile("tscripta.ini");
         string filepath = "";
+        string remoteurl = "";
+        bool remotedaemon = false;
         readonly string root = AppDomain.CurrentDomain.BaseDirectory;
         private void Initialsetup()
         {
-            IniFile ini = new IniFile("tscripta.ini");
             ini.WriteString("Config", "Filepath", "");
-            ini.WriteString("Config", "Remotedaemonurl", "");
-            ini.WriteBoolean("Config", "Local", false);
+            ini.WriteString("Config", "RemoteDaemonaddr", "");
+            ini.WriteBoolean("Config", "UseRemote", false);
+        }
+        private void Setfields()
+        {
+            filepath = ini.ReadString("Config", "Filepath");
+            remoteurl = ini.ReadString("Config", "RemoteDaemonaddr");
+            remotedaemon = ini.ReadBoolean("Config", "UseRemote");
+            Pathbox.Text = filepath;
+            if (filepath != "")
+            {
+                Default.Visibility = Visibility.Hidden;
+                Login.Visibility = Visibility.Visible;
+                Transitionframe.Reload();
+            }
+            remoteurlbox.Text = remoteurl;
+            RemoteToggle.IsChecked = remotedaemon ? true : false;
         }
         public Initial()
         {
@@ -51,6 +67,7 @@ namespace TRTL_WPF
             if (!File.Exists(root + @"\tscripta.ini")) Initialsetup();
             InitializeComponent();
             Login.Visibility = Visibility.Hidden;
+            Setfields();
         }
         private void CreateWallet(object sender, RoutedEventArgs e)
         {
@@ -67,7 +84,12 @@ namespace TRTL_WPF
             Login.Visibility = Visibility.Visible;
             Transitionframe.Reload();
         }
-
+        private void Backtomain(object sender, RoutedEventArgs e)
+        {
+            Default.Visibility = Visibility.Visible;
+            Login.Visibility = Visibility.Hidden;
+            Transitionframe.Reload();
+        }
         private void Setdirectory(object sender, RoutedEventArgs e)
         {
             CommonOpenFileDialog diag = new CommonOpenFileDialog
@@ -95,23 +117,43 @@ namespace TRTL_WPF
                 if (Process.Start())
                 {
                     // Begin redirecting output
-                    Thread.Sleep(4750);
+                    Thread.Sleep(5000);
                     if (!Process.HasExited) Process.Kill();
                     Thread.Sleep(200);
                     string contents = File.ReadAllText(root + @"\service.log");
-                    if (contents.Contains("Restored view public key doesn't correspond to secret key: The password is wrong"))
+                    if (!contents.Contains("Container loaded, view public key"))
                     {
-                        Application.Current.Dispatcher.Invoke(new Action(() => { MessageBox.Show("Password is Incorrect"); walletloading.IsActive = false; }));
+                        Application.Current.Dispatcher.Invoke(new Action(() => { MessageBox.Show("Wallet or Password is Invalid"); walletloading.IsActive = false; }));
                     }
                     else
                     {
-                        Application.Current.Dispatcher.Invoke(new Action(() => { MessageBox.Show("Password is Correct"); walletloading.IsActive = false; }));
+                        Application.Current.Dispatcher.Invoke(new Action(() => 
+                        {
+                            ini.WriteString("Config", "Filepath", filepath);
+                            walletloading.IsActive = false;
+                            MainWindow Wallet = new MainWindow(path,password, remotedaemon, "http://" + remoteurl);
+                            Wallet.Show();
+                            this.Close();
+                        }));
                     }
                 }
             })
             { IsBackground = true };
             Thread.SetApartmentState(ApartmentState.STA);
             Thread.Start();
+        }
+
+        private void Updatecheck(object sender, RoutedEventArgs e)
+        {
+            remotedaemon = (bool)RemoteToggle.IsChecked;
+            ini.WriteBoolean("Config", "UseRemote", remotedaemon);
+        }
+
+
+        private void UpdateFielddaemonurl(object sender, MouseEventArgs e)
+        {
+            remoteurl = remoteurlbox.Text;
+            ini.WriteString("Config", "RemoteDaemonaddr", remoteurl);
         }
     }
 }
