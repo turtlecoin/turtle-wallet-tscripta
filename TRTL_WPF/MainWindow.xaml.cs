@@ -110,6 +110,13 @@ namespace TRTL_WPF
             await TRTLSess.Wallet.BeginUpdateAsync();
             initialized = true;
         }
+        public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
+        {
+            // Unix timestamp is seconds past epoch
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+            return dtDateTime;
+        }
         public bool SendTRTL(string Addr, double Amount, double Fee = .01, int Mixin = 7, string PaymentID = "")
         {
             if (TRTLSess.Wallet.Synced)
@@ -146,6 +153,7 @@ namespace TRTL_WPF
                     Wallet_Page.Visibility = Visibility.Visible;
                     Send_Page.Visibility = Visibility.Hidden;
                     Recieve_Page.Visibility = Visibility.Hidden;
+                    Console_Page.Visibility = Visibility.Hidden;
                     Current_Page = 0;
                 }
                 if (page == 1)
@@ -153,6 +161,7 @@ namespace TRTL_WPF
                     Wallet_Page.Visibility = Visibility.Hidden;
                     Send_Page.Visibility = Visibility.Visible;
                     Recieve_Page.Visibility = Visibility.Hidden;
+                    Console_Page.Visibility = Visibility.Hidden;
                     Current_Page = 1;
                 }
                 if (page == 2)
@@ -160,7 +169,16 @@ namespace TRTL_WPF
                     Wallet_Page.Visibility = Visibility.Hidden;
                     Send_Page.Visibility = Visibility.Hidden;
                     Recieve_Page.Visibility = Visibility.Visible;
+                    Console_Page.Visibility = Visibility.Hidden;
                     Current_Page = 2;
+                }
+                if (page == 3)
+                {
+                    Wallet_Page.Visibility = Visibility.Hidden;
+                    Send_Page.Visibility = Visibility.Hidden;
+                    Recieve_Page.Visibility = Visibility.Hidden;
+                    Console_Page.Visibility = Visibility.Visible;
+                    Current_Page = 3;
                 }
                 Frame.Reload();
             }
@@ -182,6 +200,7 @@ namespace TRTL_WPF
         public MainWindow(string Path, string Pw, bool Remote, string Remoteurl="",int Remoteport= 11898)
         {
             InitializeComponent();
+            Walletname.Text = System.IO.Path.GetFileName(Path);
             Changepage(0);
             Thread Thread = new Thread(() =>
             {
@@ -218,6 +237,10 @@ namespace TRTL_WPF
         private void Recievebtn_Click(object sender, RoutedEventArgs e)
         {
             if (initialized) Changepage(2);
+        }
+        private void Consolebtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (initialized) Changepage(3);
         }
 
         private void Save(object sender, System.ComponentModel.CancelEventArgs e)
@@ -269,13 +292,44 @@ namespace TRTL_WPF
             Feetx.Text = Feesendfield.Value.ToString();
             sumoftx.Text = (Amountsendfield.Value + TRTLSess.Daemon.remotenodefee + Feesendfield.Value).ToString();
         }
+
+        private void updatetx(object sender, RoutedEventArgs e)
+        {
+            TRTLSess.Wallet.SendRequestAsync(RequestMethod.GET_TRANSACTIONS, new JObject { ["firstBlockIndex"] = 1, ["blockCount"] = (int)TRTLSess.Wallet.BlockCount }, out JObject result);
+            //Appendtxtasync(result.ToString());
+            if (result["items"] != null)
+            {
+                //Appendtxtasync(result.ToString());
+                List<Transfertx> tx = new List<Transfertx>();
+                foreach (dynamic a in result["items"])
+                {
+                    foreach (dynamic b in a["transactions"])
+                    {
+                        tx.Add(new Transfertx() { Amount = ((double)b["amount"] / 100).ToString() + " TRTL", Date = UnixTimeStampToDateTime((double)b["timestamp"]).ToString(), Fee = ((double)b["fee"] / 100).ToString() + " TRTL", TxHash = b["transactionHash"] });
+                    }
+                }
+
+                JObject Params = JObject.Parse(JsonConvert.SerializeObject(new Paramstx() { Transfers = tx }));
+                TxGrid.ItemsSource = Params["Transfers"];
+            }
+        }
     }
     public class Transfer
     {
         public string address { get; set; }
         public int amount { get; set; }
     }
-
+    public class Paramstx
+    {
+        public List<Transfertx> Transfers { get; set; }
+    }
+    public class Transfertx
+    {
+        public string Date { get; set; }
+        public string Amount { get; set; }
+        public string Fee { get; set; }
+        public string TxHash { get; set; }
+    }
     public class Params
     {
         public List<Transfer> transfers { get; set; }
