@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:TRTL_WPF"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="TRTL_WPF.MainWindow"
         mc:Ignorable="d"
-        Title="T-Scripta" Height="350" Width="580" Background="#FF2F2F2F" Closing="Save" WindowStartupLocation="CenterOwner">
+        Title="T-Scripta" Height="400" Width="610" Background="#FF2F2F2F" Closing="Save" WindowStartupLocation="CenterOwner">
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands Foreground="{x:Null}">
             <Button Content="Settings" Click="Open_Settings" />
@@ -20,13 +20,14 @@
             <Button Click="Walletbtn_Click" x:Name="Walletbtn" Padding="0" Height="30" Width="100" Controls:ButtonHelper.CornerRadius="0" Content="Wallet" FontSize="14" FontWeight="Bold" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderBrush="{x:Null}" />
             <Button Click="Sendbtn_Click" x:Name="Sendbtn" Padding="0" Height="30" Width="100" Controls:ButtonHelper.CornerRadius="0" Content="Send" FontSize="14" FontWeight="Bold" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderBrush="{x:Null}" />
             <Button Click="Recievebtn_Click" x:Name="Recievebtn" Padding="0" Height="30" Width="100" Controls:ButtonHelper.CornerRadius="0" Content="Recieve" FontSize="14" FontWeight="Bold" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderBrush="{x:Null}" />
+            <Button Click="Consolebtn_Click" x:Name="Consolebtn" Padding="0" Height="30" Width="100" Controls:ButtonHelper.CornerRadius="0" Content="Console" FontSize="14" FontWeight="Bold" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderBrush="{x:Null}" />
             <TextBlock Text=" Current Wallet:    " Padding="10,6,0,0" Foreground="#FFE0E0E0"/>
-            <TextBlock Text="Placeholder" Padding="0,6,0,0" Foreground="#FFE0E0E0"/>
+            <TextBlock Name="Walletname" Padding="0,6,0,0" Foreground="#FFE0E0E0"/>
         </WrapPanel>
-        <Controls:MetroContentControl x:Name="Frame" Height="290">
+        <Controls:MetroContentControl x:Name="Frame" Height="340">
             <Grid>
-                <Grid x:Name="Wallet_Page">
-                    <TextBlock Width="325" HorizontalAlignment="Left" FontWeight="Bold" FontSize="25" Padding="5,7,4,0" Margin="10,24,0,166" Background="#19000000" >
+                <Grid x:Name="Wallet_Page" d:IsHidden="True">
+                    <TextBlock Width="325" HorizontalAlignment="Left" FontWeight="Bold" FontSize="25" Padding="5,7,4,0" Margin="10,10,0,193" Background="#19000000" >
                             <Run Text="Balance: " Foreground="#FFDADADA"/>
                         <LineBreak/>
                             <Run Name="Balind" Text="0" Foreground="Green"/>
@@ -36,7 +37,7 @@
                         <Run Name="lockedind" FontSize="13" Foreground="#FF085B17"/>
                         <Run Text="TRTL" FontSize="13" Foreground="DimGray"/>
                     </TextBlock>
-                    <StackPanel HorizontalAlignment="Left" Height="133" Margin="392,147,0,0" VerticalAlignment="Top" Width="170" Background="#19000000">
+                    <StackPanel HorizontalAlignment="Left" Height="137" Margin="375,10,0,0" VerticalAlignment="Top" Width="217" Background="#19000000">
                         <TextBlock  HorizontalAlignment="Center" Text="Stats" FontWeight="Bold" FontSize="14" Height="24" Padding="0,2,0,0" Foreground="#FF7F7F7F"/>
                         <Rectangle Height="2" Fill="#FF939393" />
                         <TextBlock Foreground="#FFF9F9F9" Padding="5,0,0,0">
@@ -64,23 +65,23 @@
                             <Run Name="WalletHeight" />
                         </TextBlock>
                     </StackPanel>
-                    <TextBox Name="Console" HorizontalAlignment="Left" Height="97" Margin="10,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279"/>
-                    <TextBlock Width="279" Text="Console" HorizontalAlignment="Left" FontWeight="Bold" FontSize="10" Padding="5,7,4,0" Margin="10,161,0,107" Foreground="#FFCFCFCF"/>
+                    <DataGrid Name="TxGrid" Margin="10,162,10,10"/>
+                    <Button Name="UpdateTxList" Content="Button" HorizontalAlignment="Left" Margin="214,54,0,0" VerticalAlignment="Top" Width="75" Click="updatetx"/>
                 </Grid>
                 <Grid x:Name="Send_Page" d:IsHidden="True">
-                    <Rectangle Fill="#19000000" HorizontalAlignment="Left" Height="176" Margin="10,10,0,0" VerticalAlignment="Top" Width="552"/>
-                    <TextBlock Height="30" Text="Recipient:" Foreground="#FFCFCFCF" FontSize="20" Margin="20,16,447,244"/>
-                    <TextBox x:Name="recipientaddrsendfield" Text="" Height="27" Margin="20,46,20,217" Width="532" MouseLeave="updatetx"/>
-                    <Controls:NumericUpDown Name="Amountsendfield" Minimum="0" Maximum="10000000" HideUpDownButtons="True" Height="27" Margin="20,155,432,108" TextAlignment="Justify" FontSize="14" FontWeight="Bold" Value="0" MouseLeave="updatetx"/>
-                    <Controls:NumericUpDown x:Name="Feesendfield" Minimum="0" Maximum="100" HideUpDownButtons="True" Height="27" Margin="199,155,308,108" TextAlignment="Justify" FontSize="14" FontWeight="Bold" Value="0" MouseLeave="updatetx"/>
-                    <TextBox x:Name="paymentidsendfield" Text="" Height="27" Margin="20,100,137,163" TextWrapping="Wrap" Width="415" MouseLeave="updatetx"/>
-                    <TextBlock Margin="20,73,439,190" TextWrapping="Wrap" Text="Payment ID:" Foreground="#FFCFCFCF" FontSize="20"/>
-                    <TextBlock Margin="20,127,475,137" TextWrapping="Wrap" Text="Amount:" Foreground="#FFCFCFCF" FontSize="20"/>
-                    <TextBlock Margin="269,160,268,108" TextWrapping="Wrap" Text="TRTL" Foreground="#FF0D8F0D" FontSize="15" Width="35"/>
-                    <TextBlock Margin="199,131,331,133" TextWrapping="Wrap" Text="Fee:" Foreground="#FFCFCFCF" FontSize="20"/>
-                    <TextBlock Margin="145,160,392,108" TextWrapping="Wrap" Text="TRTL" Foreground="#FF0D8F0D" FontSize="15" Width="35"/>
-                    <Button Content="Send TRTL" Margin="477,152,20,111" Width="75" Controls:ControlsHelper.ContentCharacterCasing="Normal" Controls:ButtonHelper.CornerRadius="0" Click="SendTX"/>
-                    <StackPanel HorizontalAlignment="Left" Height="83" Margin="29,197,0,0" VerticalAlignment="Top" Width="165" Background="#33000000">
+                    <Rectangle Fill="#19000000" HorizontalAlignment="Left" Height="221" Margin="10,10,0,0" VerticalAlignment="Top" Width="582"/>
+                    <TextBlock Height="30" Text="Recipient:" Foreground="#FFCFCFCF" FontSize="20" Margin="20,20,447,290"/>
+                    <TextBox x:Name="recipientaddrsendfield" Text="" Height="27" Margin="20,55,50,258" Width="532" MouseLeave="updatetx"/>
+                    <Controls:NumericUpDown Name="Amountsendfield" Minimum="0" Maximum="10000000" HideUpDownButtons="True" Height="27" Margin="20,187,432,126" TextAlignment="Justify" FontSize="14" FontWeight="Bold" Value="0" MouseLeave="updatetx"/>
+                    <Controls:NumericUpDown x:Name="Feesendfield" Minimum="0" Maximum="100" HideUpDownButtons="True" Height="27" Margin="225,187,282,126" TextAlignment="Justify" FontSize="14" FontWeight="Bold" Value="0" MouseLeave="updatetx"/>
+                    <TextBox x:Name="paymentidsendfield" Text="" Height="27" Margin="20,119,167,194" TextWrapping="Wrap" Width="415" MouseLeave="updatetx"/>
+                    <TextBlock Margin="20,87,439,226" TextWrapping="Wrap" Text="Payment ID:" Foreground="#FFCFCFCF" FontSize="20"/>
+                    <TextBlock Margin="20,154,475,158" TextWrapping="Wrap" Text="Amount:" Foreground="#FFCFCFCF" FontSize="20"/>
+                    <TextBlock Margin="325,191,242,128" TextWrapping="Wrap" Text="TRTL" Foreground="#FF0D8F0D" FontSize="15" Width="35"/>
+                    <TextBlock Margin="225,154,305,158" TextWrapping="Wrap" Text="Fee:" Foreground="#FFCFCFCF" FontSize="20"/>
+                    <TextBlock Margin="175,191,392,128" TextWrapping="Wrap" Text="TRTL" Foreground="#FF0D8F0D" FontSize="15" Width="35"/>
+                    <Button Content="Send TRTL" Margin="494,187,30,119" Controls:ControlsHelper.ContentCharacterCasing="Normal" Controls:ButtonHelper.CornerRadius="0" Click="SendTX"/>
+                    <StackPanel HorizontalAlignment="Left" Height="83" Margin="20,247,0,0" VerticalAlignment="Top" Width="165" Background="#33000000">
                         <TextBlock Text="Transaction" Foreground="#FFEAEAEA" Padding="4,0,0,0"/>
                         <Rectangle Height="1" Fill="#FF858585"/>
                         <TextBlock Padding="4,0,0,0" Foreground="#FFFDFDFD">
@@ -101,13 +102,16 @@
 
                 </Grid>
                 <Grid x:Name="Recieve_Page" d:IsHidden="True">
-                    <Rectangle Fill="#19000000" HorizontalAlignment="Left" Height="144" Margin="10,10,0,0" VerticalAlignment="Top" Width="552"/>
-                    <TextBox x:Name="Addressbox" HorizontalAlignment="Left" Height="41" Margin="20,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="502" FontSize="12" IsReadOnly="True"/>
+                    <Rectangle Fill="#19000000" HorizontalAlignment="Left" Height="207" Margin="10,10,0,0" VerticalAlignment="Top" Width="582"/>
+                    <TextBox x:Name="Addressbox" HorizontalAlignment="Left" Height="41" Margin="20,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="561" FontSize="12" IsReadOnly="True"/>
                     <TextBlock Width="208" Text="Current Address:" HorizontalAlignment="Left" FontWeight="Bold" FontSize="24" Padding="5,7,4,0" Margin="20,19,0,233" Foreground="#FFCFCFCF"/>
-                    <Button Content="Copy to Clipboard" HorizontalAlignment="Left" Height="30" Margin="412,114,0,0" VerticalAlignment="Top" Width="110" RenderTransformOrigin="0.464,0.031" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" Click="cpaddr"/>
-                    <Button HorizontalAlignment="Left" Height="30" Margin="374,114,0,0" VerticalAlignment="Top" Width="33"  Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" Click="qraddr">
+                    <Button Content="Copy to Clipboard" HorizontalAlignment="Left" Height="30" Margin="471,114,0,0" VerticalAlignment="Top" Width="110" RenderTransformOrigin="0.464,0.031" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" Click="cpaddr"/>
+                    <Button HorizontalAlignment="Left" Height="30" Margin="433,114,0,0" VerticalAlignment="Top" Width="33"  Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" Click="qraddr">
                         <Image Source="assets/qr.png"/>
                     </Button>
+                </Grid>
+                <Grid x:Name="Console_Page">
+                    <TextBox Name="Console" Background="#FF1D232E" IsReadOnly="True" IsReadOnlyCaretVisible="True"/>
                 </Grid>
             </Grid>
         </Controls:MetroContentControl>

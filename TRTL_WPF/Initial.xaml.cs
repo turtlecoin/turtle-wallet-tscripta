@@ -117,7 +117,7 @@ namespace TRTL_WPF
                 if (Process.Start())
                 {
                     // Begin redirecting output
-                    Thread.Sleep(5000);
+                    Thread.Sleep(6000);
                     if (!Process.HasExited) Process.Kill();
                     Thread.Sleep(200);
                     string contents = File.ReadAllText(root + @"\service.log");
