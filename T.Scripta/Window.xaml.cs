@@ -8,6 +8,7 @@ namespace T.Scripta
     /// </summary>
     public partial class Window
     {
+        public bool Exist = true;
         public Window()
         {
             System.Diagnostics.Process[] pname = System.Diagnostics.Process.GetProcessesByName("turtle-service");
@@ -18,12 +19,12 @@ namespace T.Scripta
             System.IO.Directory.CreateDirectory(Turtle.root + @"\Wallets");
             System.IO.Directory.CreateDirectory(Turtle.root + @"\Binaries");
             if (!System.IO.File.Exists(Turtle.root + @"\Binaries\TurtleCoind.exe")) {
-                MessageBox.Show("Turtlecoind not found! download the latest binaries and place it in the Binaries Folder.", "Missing Binaries");
-                System.Diagnostics.Process.Start("https://github.com/turtlecoin/turtlecoin/releases");
-                this.Close();
+                Exist = false;
             }
-            if (!System.IO.File.Exists(Turtle.root + @"\Binaries\turtle-service.exe"))
-            {
+            if (!System.IO.File.Exists(Turtle.root + @"\Binaries\turtle-service.exe")) {
+                Exist = false;
+            }
+            if (Exist){
                 MessageBox.Show("turtle-service not found! download the latest binaries and place it in the Binaries Folder.", "Missing Binaries");
                 System.Diagnostics.Process.Start("https://github.com/turtlecoin/turtlecoin/releases");
                 this.Close();
