@@ -24,7 +24,7 @@ namespace T.Scripta
             if (!System.IO.File.Exists(Turtle.root + @"\Binaries\turtle-service.exe")) {
                 Exist = false;
             }
-            if (Exist){
+            if (!Exist){
                 MessageBox.Show("turtle-service not found! download the latest binaries and place it in the Binaries Folder.", "Missing Binaries");
                 System.Diagnostics.Process.Start("https://github.com/turtlecoin/turtlecoin/releases");
                 this.Close();
