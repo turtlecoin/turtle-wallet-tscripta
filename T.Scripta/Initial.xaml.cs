@@ -38,6 +38,8 @@ namespace T.Scripta
                 Main.Visibility = Visibility.Hidden;
                 Wallet.Visibility = Visibility.Visible;
             }
+            Daemonaddrbox.Text = Ini.ReadString("Wallet", "DaemonAddr");
+            ToggleRemoteDaemon.IsChecked = Ini.ReadBoolean("Wallet", "Remote");
         }
 
         private void Open_walletbtn(object sender, RoutedEventArgs e)
@@ -135,6 +137,17 @@ namespace T.Scripta
                 }
                 MessageBox.Show("Break");
             });
+        }
+
+        private void OpenSettings(object sender, RoutedEventArgs e)
+        {
+            Settingsflyout.IsOpen = true;
+        }
+        private void ApplyandSaveSettings(object sender, RoutedEventArgs e)
+        {
+            Ini.WriteString("Wallet", "DaemonAddr", Daemonaddrbox.Text);
+            Ini.WriteBoolean("Wallet", "Remote", (bool)ToggleRemoteDaemon.IsChecked);
+            Settingsflyout.IsOpen = false;
         }
     }
 }

@@ -25,39 +25,109 @@ namespace T.Scripta
     /// </summary>
     public partial class Main
     {
+        private Ini.Net.IniFile Ini = new Ini.Net.IniFile("Settings.ini");
         private bool init = false;
+        private int SelectedTab = 0;
         // private string name = "";
         public TurtleCoin TRTL;
         public Overview Overview = new Overview();
-        public Recieve Recieve = new Recieve();
+        public Recieve Receive = new Recieve();
         public Send Send = new Send();
         public Menus.Console Console = new Menus.Console();
         public Main(string file, bool remote, string pw, string addr = "", int port = 11898)
         {
             InitializeComponent();
             Task.Run(() => { Run(file, pw, remote, addr, port); });
-            Frame.Reload();
+            Frame.ReloadTransition();
+            Highlight();
             content.Content = Overview;
             Turtle.Save += Shutdown;
             Send.SendBtn.Click += SendTx;
             Walletname.Text = System.IO.Path.GetFileName(file);
+            Daemonaddrbox.Text = Ini.ReadString("Wallet", "DaemonAddr");
+            ToggleRemoteDaemon.IsChecked = Ini.ReadBoolean("Wallet", "Remote");
         }
         public void Shutdown(object sender, EventArgs e)
         {
             Task.Run(() => { MessageBox.Show("Saving and Cleaning up...", "Closing",MessageBoxButton.OK); });
             TRTL.Exit(true);
         }
-        private void OverviewTab(object sender, RoutedEventArgs e) { content.Content = Overview; }
-        private void RecieveTab(object sender, RoutedEventArgs e) { content.Content = Recieve; }
-        private void SendTab(object sender, RoutedEventArgs e) { content.Content = Send; }
-        private void ConsoleTab(object sender, RoutedEventArgs e) { content.Content = Console; }
+        private void OverviewTab(object sender, RoutedEventArgs e) { content.Content = Overview; SelectedTab = 0; Highlight(); }
+        private void SendTab(object sender, RoutedEventArgs e) { content.Content = Send; SelectedTab = 1; Highlight(); }
+        private void ReceiveTab(object sender, RoutedEventArgs e) { content.Content = Receive; SelectedTab = 2; Highlight(); }
+        private void ConsoleTab(object sender, RoutedEventArgs e) { content.Content = Console; SelectedTab = 3; Highlight(); }
+        private void SettingsTab(object sender, RoutedEventArgs e) { Settingsflyout.IsOpen = true; }
+        static void MainWindowPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab)
+            {
+                e.Handled = true;
+            }
+        }
+        private void Highlight()
+        {
+            switch (SelectedTab)
+            {
+                case 0:
+                    OverviewTabBtn.Opacity = 1;
+                    SendTabBtn.Opacity = 0.65;
+                    ReceiveTabBtn.Opacity = 0.65;
+                    ConsoleTabBtn.Opacity = 0.65;
+                    SettingsTabBtn.Opacity = 0.65;
 
+                    break;
+                case 1:
+                    OverviewTabBtn.Opacity = 0.65;
+                    SendTabBtn.Opacity = 1;
+                    ReceiveTabBtn.Opacity = 0.65;
+                    ConsoleTabBtn.Opacity = 0.65;
+                    SettingsTabBtn.Opacity = 0.65;
+
+                    break;
+                case 2:
+                    OverviewTabBtn.Opacity = 0.65;
+                    SendTabBtn.Opacity = 0.65;
+                    ReceiveTabBtn.Opacity = 1;
+                    ConsoleTabBtn.Opacity = 0.65;
+                    SettingsTabBtn.Opacity = 0.65;
+
+                    break;
+                case 3:
+                    OverviewTabBtn.Opacity = 0.65;
+                    SendTabBtn.Opacity = 0.65;
+                    ReceiveTabBtn.Opacity = 0.65;
+                    ConsoleTabBtn.Opacity = 1;
+                    SettingsTabBtn.Opacity = 0.65;
+
+                    break;
+
+            }
+        }
         private void Update()
         {
-            Overview.UpdateElements();
+            UpdateElements();
             Task.Run(GetTransactionList);
-            Recieve.UpdateElements();
+            Receive.UpdateElements();
             Console.UpdateElements(init);
+        }
+        public void UpdateElements()
+        {
+            try
+            {
+                WalletHeightind.Text = Turtle.WalletHeight.ToString();
+                DaemonHeightind.Text = Turtle.DaemonHeight.ToString();
+                NetworkHeightind.Text = Turtle.NetworkHeight.ToString();
+                DaemonAddressind.Text = Turtle.DaemonAddress.ToString();
+                Peerind.Text = Turtle.PeerCount.ToString();
+                Overview.Balanceind.Text = Turtle.AvailableBalance.ToString();
+                Overview.LockedBalanceind.Text = Turtle.LockedAmount.ToString();
+            }
+            catch { }
+        }
+        private void Drag(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                (Application.Current.MainWindow as Window).DragMove();
         }
         #region Wallet
         public void Error(object sender, TurtleCoinErrorEventArgs e)
@@ -241,7 +311,15 @@ namespace T.Scripta
         {
             SendTransaction();
         }
+
         #endregion
+
+        private void ApplyandSaveSettings(object sender, RoutedEventArgs e)
+        {
+            Ini.WriteString("Wallet", "DaemonAddr", Daemonaddrbox.Text);
+            Ini.WriteBoolean("Wallet", "Remote", (bool)ToggleRemoteDaemon.IsChecked);
+            Settingsflyout.IsOpen = false;
+        }
     }
     public class Turtle
     {

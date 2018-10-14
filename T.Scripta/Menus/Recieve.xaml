@@ -6,11 +6,11 @@
              xmlns:local="clr-namespace:T.Scripta.Menus"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="T.Scripta.Menus.Recieve"
              mc:Ignorable="d" 
-             d:DesignHeight="405" d:DesignWidth="800">
+             d:DesignHeight="433" d:DesignWidth="724">
     <Grid>
-        <TextBox Name="Address" Margin="25,61,25,304" IsReadOnly="True" FontSize="13" TextWrapping="Wrap" Text="" BorderThickness="0,0,0,1" BorderBrush="#FFCCCCCC" Background="{x:Null}" mah:TextBoxHelper.Watermark="Your Turtlecoin Address" mah:TextBoxHelper.UseFloatingWatermark="True"/>
-        <Button Content="Copy to Clipboard" HorizontalAlignment="Left" Height="30" Margin="665,114,0,0" VerticalAlignment="Top" Width="110" RenderTransformOrigin="0.464,0.031" mah:ButtonHelper.CornerRadius="0" mah:ControlsHelper.ContentCharacterCasing="Normal" Click="cpaddr"/>
-        <Button HorizontalAlignment="Left" Height="30" Margin="627,114,0,0" VerticalAlignment="Top" Width="33"  mah:ButtonHelper.CornerRadius="0" mah:ControlsHelper.ContentCharacterCasing="Normal" Click="qraddr">
+        <TextBox Name="Address" Margin="10,71,10,312" IsReadOnly="True" FontSize="12" TextWrapping="Wrap" BorderThickness="0,0,0,1" BorderBrush="#FFCCCCCC" Background="{x:Null}" mah:TextBoxHelper.Watermark="Your Turtlecoin Address" mah:TextBoxHelper.UseFloatingWatermark="True"/>
+        <Button Content="Copy to Clipboard" HorizontalAlignment="Left" Height="40" Margin="595,142,0,0" VerticalAlignment="Top" Width="110" RenderTransformOrigin="0.464,0.031" mah:ButtonHelper.CornerRadius="0" mah:ControlsHelper.ContentCharacterCasing="Normal" Click="cpaddr"/>
+        <Button HorizontalAlignment="Left" Height="40" Margin="540,142,0,0" VerticalAlignment="Top" Width="40"  mah:ButtonHelper.CornerRadius="0" mah:ControlsHelper.ContentCharacterCasing="Normal" Click="qraddr">
             <Image Source="/T.Scripta;component/Assets/qr.png"/>
         </Button>
     </Grid>

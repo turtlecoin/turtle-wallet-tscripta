@@ -28,20 +28,6 @@ namespace T.Scripta
             InitializeComponent();
             
         }
-        public void UpdateElements()
-        {
-            try
-            {
-                WalletHeightind.Text = Turtle.WalletHeight.ToString();
-                DaemonHeightind.Text = Turtle.DaemonHeight.ToString();
-                NetworkHeightind.Text = Turtle.NetworkHeight.ToString();
-                DaemonAddressind.Text = Turtle.DaemonAddress.ToString();
-                Peerind.Text = Turtle.PeerCount.ToString();
-                Balanceind.Text = Turtle.AvailableBalance.ToString();
-                LockedBalanceind.Text = Turtle.LockedAmount.ToString();
-            }
-            catch { }
-        }
         public void UpdateTransactionList(List<TransferData> input)
         {
             Transaction_List.ItemsSource = input;

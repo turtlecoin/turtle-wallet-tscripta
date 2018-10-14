@@ -6,13 +6,13 @@
              xmlns:local="clr-namespace:T.Scripta.Menus"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="T.Scripta.Menus.Send"
              mc:Ignorable="d" 
-             d:DesignHeight="405" d:DesignWidth="800">
+             d:DesignHeight="433" d:DesignWidth="724">
     <Grid>
-        <Rectangle Margin="10,20,10,200" Fill="#FF1B1B1B" />
-        <TextBox Name="RecipientAddr" Margin="10,72,30,293" FontSize="13" TextWrapping="Wrap" Text="" mah:TextBoxHelper.Watermark="Recipient Address/Combined Address:" mah:TextBoxHelper.UseFloatingWatermark="True" BorderThickness="0,0,0,1" Background="{x:Null}"/>
-        <TextBox  Name="PaymentID" Margin="10,119,409,246" FontSize="13" TextWrapping="Wrap" Text="" mah:TextBoxHelper.UseFloatingWatermark="True" mah:TextBoxHelper.Watermark="Payment ID (Optional)" BorderThickness="0,0,0,1" Background="{x:Null}"/>
-        <mah:NumericUpDown Name="Amount" ValueChanged="UpdateAmount" TextAlignment="Center" Margin="454,117,213,248" HideUpDownButtons="True" Background="{x:Null}" Minimum="1" Maximum="99999999999999" NumericInputMode="Decimal" mah:TextBoxHelper.Watermark="Amount (TRTL)" BorderThickness="0,0,0,1" mah:TextBoxHelper.WatermarkAlignment="Center" mah:TextBoxHelper.HasText="True" mah:TextBoxHelper.UseFloatingWatermark="True"/>
-        <Border BorderBrush="#FF818181" BorderThickness="1" HorizontalAlignment="Left" Height="115" Margin="30,232,0,0" VerticalAlignment="Top" Width="216">
+        <Rectangle Margin="10,20,10,151" Fill="#FF1B1B1B" />
+        <TextBox Name="RecipientAddr" Margin="20,42,40,341" FontSize="13" TextWrapping="Wrap" Text="" mah:TextBoxHelper.Watermark="Recipient Address/Combined Address:" mah:TextBoxHelper.UseFloatingWatermark="True" BorderThickness="0,0,0,1" Background="{x:Null}"/>
+        <TextBox  Name="PaymentID" Margin="0,121,409,262" FontSize="13" TextWrapping="Wrap" Text="" mah:TextBoxHelper.UseFloatingWatermark="True" mah:TextBoxHelper.Watermark="Payment ID (Optional)" BorderThickness="0,0,0,1" Background="{x:Null}" HorizontalAlignment="Right" Width="295"/>
+        <mah:NumericUpDown Name="Amount" ValueChanged="UpdateAmount" TextAlignment="Center" Margin="390,121,186,262" HideUpDownButtons="True" Background="{x:Null}" Minimum="1" Maximum="99999999999999" NumericInputMode="Decimal" mah:TextBoxHelper.Watermark="Amount (TRTL)" BorderThickness="0,0,0,1" mah:TextBoxHelper.WatermarkAlignment="Center" mah:TextBoxHelper.HasText="True" mah:TextBoxHelper.UseFloatingWatermark="True"/>
+        <Border BorderBrush="#FF818181" BorderThickness="1" HorizontalAlignment="Left" Height="115" Margin="10,297,0,0" VerticalAlignment="Top" Width="216">
             <TextBlock Padding="10" FontSize="13" Margin="1" Foreground="#FFE0E0E0">
             <Run Text="Transaction Overview:"/> <LineBreak/>
             <Rectangle Height="1" Fill="#FF088356" Width="200"/> <LineBreak/>
@@ -27,13 +27,13 @@
 
             </TextBlock>
         </Border>
-        <Button Name="SendBtn" Content="Send" Margin="661,232,49,133" BorderBrush="{x:Null}" FontSize="15" mah:ControlsHelper.ContentCharacterCasing="Normal"/>
-        <ComboBox Name="FeeSelector" SelectedIndex="0" SelectionChanged="UpdateTx" Margin="620,117,30,248" mah:TextBoxHelper.Watermark="Transaction Fee" mah:TextBoxHelper.UseFloatingWatermark="True" Height="40" BorderThickness="0,0,0,1" Background="{x:Null}" BorderBrush="{x:Null}">
+        <Button Name="SendBtn" Content="Send" Margin="551,205,49,178" BorderBrush="{x:Null}" FontSize="15" mah:ControlsHelper.ContentCharacterCasing="Normal"/>
+        <ComboBox Name="FeeSelector" SelectedIndex="0" SelectionChanged="UpdateTx" Margin="551,121,43,262" mah:TextBoxHelper.Watermark="Transaction Fee" mah:TextBoxHelper.UseFloatingWatermark="True" BorderThickness="0,0,0,1" Background="{x:Null}" BorderBrush="{x:Null}">
             <ComboBoxItem Content="Low (0.1 TRTL)"/>
             <ComboBoxItem Content="Medium (0.2 TRTL)"/>
             <ComboBoxItem Content="High (0.3 TRTL)"/>
             <ComboBoxItem Content="Very High (1 TRTL)"/>
         </ComboBox>
-        <Button Content="Max" Margin="419,117,351,248" BorderBrush="{x:Null}"  FontSize="8" mah:ControlsHelper.ContentCharacterCasing="Normal" mah:ButtonHelper.CornerRadius="0" Click="MaxSend"/>
+        <Button Content="Max" Margin="343,121,339,262" BorderBrush="{x:Null}"  FontSize="8" mah:ControlsHelper.ContentCharacterCasing="Normal" mah:ButtonHelper.CornerRadius="0" Click="MaxSend"/>
     </Grid>
 </UserControl>

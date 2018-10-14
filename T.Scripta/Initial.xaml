@@ -7,29 +7,70 @@
       xmlns:local="clr-namespace:T.Scripta"
       xmlns:Menus="clr-namespace:T.Scripta.Menus" x:Class="T.Scripta.Initial"
       mc:Ignorable="d" 
-      Height="420" Width="800">
+      Height="471" Width="950">
 
     <Grid Focusable="False" >
-        <Image Source="Assets/trtl.png"  Margin="323,0,323,296"/>
-        <TextBlock Text="T.Scripta" FontSize="25" TextAlignment="Center" Margin="323,124,323,261" Foreground="#FFD6C7C7"/>
-        <TextBlock Margin="762,393,10,10" Text="v2.02" Foreground="White"/>
-        <Controls:TransitioningContentControl Focusable="False" IsTabStop="True" Name="Transition" Margin="0,159,0,0">
+        <Controls:FlyoutsControl>
+            <Controls:Flyout Name="Settingsflyout" Header="Settings" IsOpen="False" Background="#F92B2B2B" Width="400">
+                <StackPanel Margin="20" Background="#0CFFFFFF">
+                    <TextBlock Margin="10,0,0,0" Padding="5" Text="Network" FontSize="20" TextDecorations="{x:Null}"/>
+                    <Rectangle Height="1" Margin="10,0,10,10">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,1">
+                                <GradientStop Offset="0"/>
+                                <GradientStop Offset="1"/>
+                                <GradientStop Color="White" Offset="0.052"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <TextBox Name="Daemonaddrbox"  Margin="20,10,20,0" Height="40" Background="{x:Null}" BorderBrush="White" Controls:TextBoxHelper.Watermark="Daemon Address" BorderThickness="0,0,0,1" Controls:TextBoxHelper.UseFloatingWatermark="True"/>
+                    <Controls:ToggleSwitch Name="ToggleRemoteDaemon" Content="Use Remote Daemon" Margin="20,5,20,0" />
+                    <TextBlock Margin="10,0,0,0" Padding="5" Text="Wallet" FontSize="20" TextDecorations="{x:Null}"/>
+                    <Rectangle Height="1" Margin="10,0,10,10">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,1">
+                                <GradientStop Offset="0"/>
+                                <GradientStop Offset="1"/>
+                                <GradientStop Color="White" Offset="0.052"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Controls:ToggleSwitch IsEnabled="False" Name="ShellToggle" Content="Show amounts in shells" Margin="20,5,20,0" />
+                    <ComboBox IsEnabled="False" Name="Exchangeratebox" SelectedIndex="0" Height="40" Margin="20,5,20,20" Background="#00000000" Controls:TextBoxHelper.Watermark="Exchange Rates" Controls:TextBoxHelper.UseFloatingWatermark="True" BorderBrush="{x:Null}" >
+                        <ComboBoxItem Content="USD"/>
+                        <ComboBoxItem Content="BTC"/>
+                    </ComboBox>
+                    <Grid Height="50">
+                        <TextBlock TextWrapping="Wrap" Text="*Network settings will be applied on next start" Margin="10,0,208,10"/>
+                        <Button Content="Apply and Save" Controls:ButtonHelper.CornerRadius="0" Margin="240,10,10,10" Controls:ControlsHelper.ContentCharacterCasing="Normal" Click="ApplyandSaveSettings"/>
+                    </Grid>
+                </StackPanel>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+        <Image Source="Assets/trtl.png"  Margin="323,10,323,301"/>
+        <TextBlock Text="T.Scripta" FontSize="25" TextAlignment="Center" Margin="323,170,323,266" Foreground="#FFD6C7C7"/>
+        <TextBlock Margin="906,443,10,10" Text="v2.03" Foreground="White"/>
+        <Controls:TransitioningContentControl Focusable="False" IsTabStop="True" Name="Transition" Margin="0,210,0,0">
             <Grid>
-                <Grid Name="Main" Visibility="Visible">
-                    <Button IsTabStop="True" Content="Open Wallet" FontSize="15" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" Margin="277,97,277,114" Click="Open_walletbtn" />
-                    <Button IsTabStop="True" Content="Create New Wallet" FontSize="15" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" Margin="277,48,277,163" Click="Create_walletbtn"/>
+                <Grid Name="Main" Visibility="Visible" Margin="0,10,0,0">
+                    <Button IsTabStop="True" Content="Open Wallet" FontSize="15" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" Margin="212,102,212,74" Click="Open_walletbtn" />
+                    <Button IsTabStop="True" Content="Create New Wallet" FontSize="15" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" Margin="212,28,212,148" Click="Create_walletbtn"/>
+                    <Button Click="OpenSettings" Margin="10,182,880,10">
+                        <Image Source="Assets/settings.png"/>
+                    </Button>
                 </Grid>
                 <Grid Name="Wallet" Visibility="Hidden" >
-                    <TextBlock Name="Walletnameind" Margin="260,10,260,233" TextAlignment="Center" Foreground="#FFDADADA"/>
+                    <TextBlock Name="Walletnameind" Margin="260,10,260,217" TextAlignment="Center" Foreground="#FFDADADA"/>
                     <PasswordBox x:Name="Passwordfield" Margin="297,49,297,174" Background="{x:Null}" BorderThickness="0,0,0,1" BorderBrush="#FF074D00" Foreground="White" Controls:TextBoxHelper.Watermark="Password" Controls:TextBoxHelper.UseFloatingWatermark="True"/>
-                    <Button x:Name="Unlockwalletbtn" Content="Unlock Wallet" Margin="378,105,297,125" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderBrush="{x:Null}" Foreground="#FFDEDEDE" Focusable="False" Click="LoadWallet" />
-                    <Button x:Name="Returntomenubtn" Content="Go Back" Margin="297,105,451,125" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderBrush="{x:Null}" Foreground="#FFDEDEDE" Focusable="False" Click="Returntomainmenubtn" />
-                    <Controls:ProgressRing x:Name="Progress"  IsActive="False" Margin="552,76,188,125"/>
+                    <Button x:Name="Unlockwalletbtn" Content="Unlock Wallet" Margin="445,105,297,112" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderBrush="{x:Null}" Foreground="#FFDEDEDE" Focusable="False" Click="LoadWallet" />
+                    <Button x:Name="Returntomenubtn" Content="Go Back" Margin="297,105,540,112" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderBrush="{x:Null}" Foreground="#FFDEDEDE" Focusable="False" Click="Returntomainmenubtn" />
+                    <Controls:ProgressRing x:Name="Progress"  IsActive="False" Margin="711,49,139,112" Height="100" Width="100"/>
                     <Controls:TransitioningContentControl Name="FactShower" Margin="179,154,178,10">
                         <TextBlock TextWrapping="Wrap" Name="Fact" TextAlignment="Center" FontSize="17" Foreground="#FFCDCDCD"/>
                     </Controls:TransitioningContentControl>
                 </Grid>
             </Grid>
         </Controls:TransitioningContentControl>
+        
     </Grid>
 </Page>
