@@ -5,20 +5,94 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:T.Scripta"
-        mc:Ignorable="d" Title="T Scripta" Height="450" Width="800" Background="#FF1F1F1F">
-    <Controls:MetroContentControl Name="Frame">
-        <StackPanel>
-            <WrapPanel Height="35" Background="#19000000">
-                <Button Content="Overview" Width="100" Height="35" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderBrush="{x:Null}" Foreground="White" Focusable="False" Click="OverviewTab" Background="#FF2B2B2B" />
-                <Button Name="Recievebtn" Content="Receive" Width="100" Height="35" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderBrush="{x:Null}" IsTabStop="False" Focusable="False" Click="RecieveTab" Background="#FF2B2B2B"/>
-                <Button Name="Sendbtn" Content="Send" Width="100" Height="35" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderBrush="{x:Null}" IsTabStop="False" Focusable="False" Click="SendTab" Background="#FF2B2B2B" />
-                <Button Content="Console" Width="100" Height="35" Controls:ButtonHelper.CornerRadius="0" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderBrush="{x:Null}" IsTabStop="False" Focusable="False" Click="ConsoleTab" Background="#FF2B2B2B" />
-                <TextBlock Padding="9,9,0,0" Foreground="#FFE8E8E8">
-                <Run Text="Wallet: "/>
-                <Run Text="" Name="Walletname"/>
+        mc:Ignorable="d" Title="T Scripta" Height="471" Width="950" Background="#FF252525">
+    <Controls:TransitioningContentControl Name="Frame">
+        <Grid>
+            <DockPanel>
+                <Grid Background="#7F171717" DockPanel.Dock="Left" Width="220">
+                    <TextBlock Padding="4" TextAlignment="Center" FontSize="30" Foreground="#FFE4E4E4" FontFamily="Segoe UI Semilight" Margin="0,0,0,423"> <Run Text="T Scripta"/></TextBlock>
+                    <Button Name="OverviewTabBtn"  Width="200" Background="#FF2B2B2B" Margin="10,53,10,358" Click="OverviewTab" Controls:ButtonHelper.CornerRadius="0" Opacity="0.65">
+                        <Grid>
+                            <Image Source="Assets/turtlecoin.png" Margin="0,-5,112,-5"/>
+                            <TextBlock Text="Overview" FontSize="20" VerticalAlignment="Center" TextAlignment="Center" Foreground="#FFFDFDFD" Margin="90,0,0,0"/>
+                        </Grid>
+
+                    </Button>
+                    <Button Name="SendTabBtn"  Width="200" Background="#FF2B2B2B" Margin="10,118,10,293" Click="SendTab" Controls:ButtonHelper.CornerRadius="0" Opacity="0.65">
+                        <Grid>
+                            <Image Source="Assets/send.png" Margin="0,-4,112,-3" />
+                            <TextBlock Text="Send" FontSize="20" VerticalAlignment="Center" TextAlignment="Center" Foreground="#FFFDFDFD" Margin="90,0,0,0"/>
+                        </Grid>
+
+                    </Button>
+                    <Button Name="ReceiveTabBtn" Width="200" Background="#FF2B2B2B" Margin="10,183,10,228" Click="ReceiveTab" Controls:ButtonHelper.CornerRadius="0" Opacity="0.65" >
+                        <Grid>
+                            <Image Source="Assets/receive.png" Margin="0,-1,112,-1"/>
+                            <TextBlock Text="Receive" FontSize="20" VerticalAlignment="Center" TextAlignment="Center" Foreground="#FFFDFDFD" Margin="90,0,0,0"/>
+                        </Grid>
+                    </Button>
+                    <Button Name="ConsoleTabBtn" Width="200" Background="#FF2B2B2B" Margin="10,248,10,163" Click="ConsoleTab" Controls:ButtonHelper.CornerRadius="0" Opacity="0.65" >
+                        <Grid>
+                            <Image Source="Assets/console.png" Margin="0,-1,112,-1"/>
+                            <TextBlock Text="Console" FontSize="20" VerticalAlignment="Center" TextAlignment="Center" Foreground="#FFFDFDFD" Margin="90,0,0,0" Grid.Column="1"/>
+                        </Grid>
+                    </Button>
+                    <Button Name="SettingsTabBtn" Width="200" Background="#FF2B2B2B" Margin="10,313,10,98" Click="SettingsTab" Controls:ButtonHelper.CornerRadius="0" Opacity="0.62" >
+                        <Grid>
+                            <Image Source="Assets/settings.png" Margin="0,-1,112,0"/>
+                            <TextBlock Text="Settings" FontSize="20" VerticalAlignment="Center" TextAlignment="Center" Foreground="#FFFDFDFD" Margin="90,0,0,0"/>
+                        </Grid>
+                    </Button>
+                    <TextBlock Padding="7" FontSize="12" Foreground="#FFCBCBCB" Margin="10,373,10,5" FontFamily="Malgun Gothic">
+                    <Run Text="Wallet Height: "/> <Run Text="0" Name="WalletHeightind" /> <LineBreak/>
+                    <Run Text="Daemon Height: "/> <Run Text="0" Name="DaemonHeightind"/> <LineBreak/>
+                    <Run Text="Network Height: "/> <Run Text="0" Name="NetworkHeightind"/> <LineBreak/>
+                    <Run Text="Daemon: "/> <Run Text="Localhost" Name="DaemonAddressind"/> <LineBreak/>
+                    <Run Text="Peers: "/> <Run Text="0" Name="Peerind"/>
+                    </TextBlock>
+                </Grid>
+                <TextBlock FontSize="18" Padding="6" Height="40" DockPanel.Dock="Top" Background="#7F0E0E0E" Foreground="#FFE8E8E8" MouseLeftButtonDown="Drag">
+                    <Run Text="Wallet: "/> <Run Name="Walletname"/>
                 </TextBlock>
-            </WrapPanel>
-            <Controls:TransitioningContentControl x:Name="content" Height="405" Transition="Left" Foreground="{x:Null}"/>
-        </StackPanel>
-    </Controls:MetroContentControl>
+                <Controls:TransitioningContentControl Name="content" Margin="-1"/>
+            </DockPanel>
+            <Controls:FlyoutsControl>
+                <Controls:Flyout Name="Settingsflyout" Header="Settings" IsOpen="True" Background="#F92B2B2B" Width="400">
+                    <StackPanel Margin="20" Background="#0CFFFFFF">
+                        <TextBlock Margin="10,0,0,0" Padding="5" Text="Network" FontSize="20" TextDecorations="{x:Null}"/>
+                        <Rectangle Height="1" Margin="10,0,10,10">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,1">
+                                    <GradientStop Offset="0"/>
+                                    <GradientStop Offset="1"/>
+                                    <GradientStop Color="White" Offset="0.052"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBox Name="Daemonaddrbox"  Margin="20,10,20,0" Height="40" Background="{x:Null}" BorderBrush="White" Controls:TextBoxHelper.Watermark="Daemon Address" BorderThickness="0,0,0,1" Controls:TextBoxHelper.UseFloatingWatermark="True"/>
+                        <Controls:ToggleSwitch Name="ToggleRemoteDaemon" Content="Use Remote Daemon" Margin="20,5,20,0" />
+                        <TextBlock Margin="10,0,0,0" Padding="5" Text="Wallet" FontSize="20" TextDecorations="{x:Null}"/>
+                        <Rectangle Height="1" Margin="10,0,10,10">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,1">
+                                    <GradientStop Offset="0"/>
+                                    <GradientStop Offset="1"/>
+                                    <GradientStop Color="White" Offset="0.052"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Controls:ToggleSwitch IsEnabled="False" Name="ShellToggle" Content="Show amounts in shells" Margin="20,5,20,0" />
+                        <ComboBox IsEnabled="False" Name="Exchangeratebox" SelectedIndex="0" Height="40" Margin="20,5,20,20" Background="#00000000" Controls:TextBoxHelper.Watermark="Exchange Rates" Controls:TextBoxHelper.UseFloatingWatermark="True" BorderBrush="{x:Null}" >
+                            <ComboBoxItem Content="USD"/>
+                            <ComboBoxItem Content="BTC"/>
+                        </ComboBox>
+                        <Grid Height="50">
+                            <TextBlock TextWrapping="Wrap" Text="*Network settings will be applied on next start" Margin="10,0,208,10"/>
+                            <Button Content="Apply and Save" Controls:ButtonHelper.CornerRadius="0" Margin="240,10,10,10" Controls:ControlsHelper.ContentCharacterCasing="Normal" Click="ApplyandSaveSettings"/>
+                        </Grid>
+                    </StackPanel>
+                </Controls:Flyout>
+            </Controls:FlyoutsControl>
+        </Grid>
+    </Controls:TransitioningContentControl>
 </Page>
