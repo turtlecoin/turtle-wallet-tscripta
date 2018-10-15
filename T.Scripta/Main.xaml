@@ -57,7 +57,7 @@
                 <Controls:TransitioningContentControl Name="content" Margin="-1"/>
             </DockPanel>
             <Controls:FlyoutsControl>
-                <Controls:Flyout Name="Settingsflyout" Header="Settings" IsOpen="True" Background="#F92B2B2B" Width="400">
+                <Controls:Flyout Name="Settingsflyout" Header="Settings" IsOpen="False" Background="#F92B2B2B" Width="400">
                     <StackPanel Margin="20" Background="#0CFFFFFF">
                         <TextBlock Margin="10,0,0,0" Padding="5" Text="Network" FontSize="20" TextDecorations="{x:Null}"/>
                         <Rectangle Height="1" Margin="10,0,10,10">
