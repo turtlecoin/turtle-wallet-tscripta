@@ -69,8 +69,47 @@
                         <TextBlock TextWrapping="Wrap" Name="Fact" TextAlignment="Center" FontSize="17" Foreground="#FFCDCDCD"/>
                     </Controls:TransitioningContentControl>
                 </Grid>
+                <Button Click="OpenSettings" Margin="10,191,880,10">
+                    <Image Source="Assets/settings.png"/>
+                </Button>
             </Grid>
         </Controls:TransitioningContentControl>
-        
+        <Controls:FlyoutsControl>
+            <Controls:Flyout Name="Settingsflyout" Header="Settings" IsOpen="False" Background="#F92B2B2B" Width="400">
+                <StackPanel Margin="20" Background="#0CFFFFFF">
+                    <TextBlock Margin="10,0,0,0" Padding="5" Text="Network" FontSize="20" TextDecorations="{x:Null}"/>
+                    <Rectangle Height="1" Margin="10,0,10,10">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,1">
+                                <GradientStop Offset="0"/>
+                                <GradientStop Offset="1"/>
+                                <GradientStop Color="White" Offset="0.052"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <TextBox Name="Daemonaddrbox"  Margin="20,10,20,0" Height="40" Background="{x:Null}" BorderBrush="White" Controls:TextBoxHelper.Watermark="Daemon Address" BorderThickness="0,0,0,1" Controls:TextBoxHelper.UseFloatingWatermark="True"/>
+                    <Controls:ToggleSwitch Name="ToggleRemoteDaemon" Content="Use Remote Daemon" Margin="20,5,20,0" />
+                    <TextBlock Margin="10,0,0,0" Padding="5" Text="Wallet" FontSize="20" TextDecorations="{x:Null}"/>
+                    <Rectangle Height="1" Margin="10,0,10,10">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,1">
+                                <GradientStop Offset="0"/>
+                                <GradientStop Offset="1"/>
+                                <GradientStop Color="White" Offset="0.052"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Controls:ToggleSwitch IsEnabled="False" Name="ShellToggle" Content="Show amounts in shells" Margin="20,5,20,0" />
+                    <ComboBox IsEnabled="False" Name="Exchangeratebox" SelectedIndex="0" Height="40" Margin="20,5,20,20" Background="#00000000" Controls:TextBoxHelper.Watermark="Exchange Rates" Controls:TextBoxHelper.UseFloatingWatermark="True" BorderBrush="{x:Null}" >
+                        <ComboBoxItem Content="USD"/>
+                        <ComboBoxItem Content="BTC"/>
+                    </ComboBox>
+                    <Grid Height="50">
+                        <TextBlock TextWrapping="Wrap" Text="*Network settings will be applied on next start" Margin="10,0,208,10"/>
+                        <Button Content="Apply and Save" Controls:ButtonHelper.CornerRadius="0" Margin="240,10,10,10" Controls:ControlsHelper.ContentCharacterCasing="Normal" Click="ApplyandSaveSettings"/>
+                    </Grid>
+                </StackPanel>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
     </Grid>
 </Page>
