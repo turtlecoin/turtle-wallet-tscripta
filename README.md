@@ -1,5 +1,5 @@
 ## T-Scripta Wallet
-![window](https://i.imgur.com/orUHkJB.png)
+![window](https://i.imgur.com/7vebIHt.png)
 
 Turtlecoin Wallet made in C# WPF
 
