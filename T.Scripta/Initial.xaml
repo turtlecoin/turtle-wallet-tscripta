@@ -31,7 +31,7 @@
                         <TextBlock TextWrapping="Wrap" Name="Fact" TextAlignment="Center" FontSize="17" Foreground="#FFCDCDCD"/>
                     </Controls:TransitioningContentControl>
                 </Grid>
-                <Button Click="OpenSettings" Margin="10,191,880,10">
+                <Button Click="OpenSettings" Margin="10,182,880,10">
                     <Image Source="Assets/settings.png"/>
                 </Button>
             </Grid>
